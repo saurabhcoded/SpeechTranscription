@@ -10,7 +10,8 @@ async def ai_response(request: Request):
         prompt = body.get("prompt")
         if not prompt:
             raise HTTPException(status_code=422, detail="Missing 'prompt'")
-        result = aiprompt_handle(prompt)
+        result = aiprompt_handle(prompt,{})
         return {"response": result}
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=500, detail=str(e))

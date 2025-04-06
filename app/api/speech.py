@@ -1,10 +1,11 @@
-from fastapi import APIRouter, FileResponse, Request, HTTPException
+from fastapi import APIRouter, Request, HTTPException
+from fastapi.responses import FileResponse
 from app.utils.file_ops import save_upload_file
-
+from app.services.speech_service import text2Speech
 router = APIRouter()
 
-@router.get("/speak/")
-def speech(request: Request):
+@router.post("/speak")
+async def speech(request: Request):
     try:
         body = await request.json()
         speech_txt = body.get("speech_txt")
